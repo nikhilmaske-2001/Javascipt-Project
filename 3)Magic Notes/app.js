@@ -7,6 +7,7 @@ let addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", function(e) {
   let addTxt = document.getElementById("addTxt");
   let notes = localStorage.getItem("notes");
+  //if no notes then create an empty array else add notes to that array
   if (notes == null) {
     notesObj = [];
   } else {
@@ -14,6 +15,7 @@ addBtn.addEventListener("click", function(e) {
   }
   notesObj.push(addTxt.value);
   localStorage.setItem("notes", JSON.stringify(notesObj));
+  //Setting addtxt value = blank string to clear the input field
   addTxt.value = "";
 //   console.log(notesObj);
   showNotes();
@@ -28,6 +30,7 @@ function showNotes() {
     notesObj = JSON.parse(notes);
   }
   let html = "";
+  //function to add a note card when input is given
   notesObj.forEach(function(element, index) {
     html += `
             <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
@@ -39,6 +42,7 @@ function showNotes() {
                 </div>`;
   });
   let notesElm = document.getElementById("notes");
+  // if input is non empty then add notes else nothing to show
   if (notesObj.length != 0) {
     notesElm.innerHTML = html;
   } else {
@@ -55,7 +59,7 @@ function deleteNote(index) {
   } else {
     notesObj = JSON.parse(notes);
   }
-
+//.splice to delete 1 note from index
   notesObj.splice(index, 1);
   localStorage.setItem("notes", JSON.stringify(notesObj));
   showNotes();
